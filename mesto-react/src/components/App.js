@@ -1,35 +1,14 @@
-import headerLogo from '../images/header__logo.svg';
-import avatarka from '../images/Jacques-YvesCousteau.jpg';
+import Header from './Header';
+import Footer from './Footer';
+import Main from './Main';
 import '../index.css';
 
 function App() {
   return (
     <div class="body">
-      <header class="header">
-        <img src={headerLogo} alt="Логотип" class="header__logo" />
-      </header>
-      <main class="container">
-
-        <section class="profile">
-          <div class="profile__avatar">
-            <img src={avatarka} alt="Аватарка" class="profile__image" />
-          </div>
-          <div class="profile__info">
-            <div class="profile__block">
-              <h1 class="profile__name">Жак Ив Кусто</h1>
-              <button type="button" class="profile__edit-button"></button>
-            </div>
-            <p class="profile__description">Исследователь океана</p>
-          </div>
-          <button type="button" class="profile__add-button"></button>
-        </section>
-        <section class="cards">
-        </section>
-
-        <footer class="footer">
-          <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
-      </main>
+      <Header />
+      <Main />
+      <Footer />
 
       <article class="popup" id="popupEdit">
         <div class="popup__container">
