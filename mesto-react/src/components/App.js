@@ -1,88 +1,55 @@
+import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
+import PopupWithForm from './PopupWithForm';
+import AddCardPopup from './AddCardPopup';
+import EditPopup from './EditPopup';
+import AvatarPopup from './AvatarPopup';
+import ImagePopup from './ImagePopup';
 import '../index.css';
 
 function App() {
-  return (
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+
+  const handleEditAvatarClick = () => {
+    setIsEditAvatarPopupOpen(true)
+  };
+
+  const handleEditProfileClick = () => {
+    setIsEditProfilePopupOpen(true)
+  };
+
+  const handleAddPlaceClick = () => {
+    setIsAddPlacePopupOpen(true)
+  };
+
+  const closeAllPopups = () => {
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsImagePopupOpen(false);
+  }
+
+  const handleCardClick = (card) => {
+    setIsImagePopupOpen(true);
+    setSelectedCard(card)
+  }
+
+   return (
     <div class="body">
       <Header />
-      <Main />
+      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
       <Footer />
-
-      <article class="popup" id="popupEdit">
-        <div class="popup__container">
-          <button type="button" class="popup__close" id="closeEditPopup"></button>
-          <legend class="popup__title">Редактировать профиль</legend>
-          <form name="popup-form-edit" class="popup__form" id="edit-profile" novalidate>
-            <input id="name" class="popup__input" type="text" name="username" placeholder="Ваше имя" value="" minlength="2" maxlength="40" required />
-            <span class="popup__input-error" id="name-error"></span>
-            <input id="occupation" class="popup__input" type="text" name="occupation" placeholder="Род деятельности" value="" minlength="2" maxlength="200" required />
-            <span class="popup__input-error" id="occupation-error"></span>
-            <button type="submit" class="popup__submit">Сохранить</button>
-          </form>
-        </div>
-      </article>
-
-      <article class="popup popup_avatar">
-        <div class="popup__container">
-          <button type="button" aria-label="Закрыть" class="popup__close" id='closeAvatarPopup'></button>
-          <form name="form-newAvatar" class="popup__form popup__form_avatar" novalidate>
-            <h3 class="popup__title">Обновить аватар</h3>
-            <input id="av_link" class="popup__input" type="url" name="av_link" placeholder="Ссылка на фото" value="" minlength="2" required />
-            <span class="popup__input-error" id="av_link-error"></span>
-            <button type="submit" class="popup__submit">Сохранить</button>
-          </form>
-        </div>
-      </article>
-
-      <article class="popup popup_type_add-card">
-        <div class="popup__container">
-          <button type="button" class="popup__close"  id='closeAddPopup'></button>
-          <form name="popup-form-add" autocomplete="on" class="popup__form" id='add-card' novalidate>
-            <fieldset class="popup__field">
-              <legend class="popup__title">Новое место</legend>
-              <input id="placename" class="popup__input" type="text" name="placename" placeholder="Название" minlength="2" maxlength="30" required />
-              <span class="popup__input-error" id="placename-error"></span>
-              <input id="link" class="popup__input" type="url" name="link" placeholder="Ссылка на картинку" required />
-              <span class="popup__input-error" id="link-error"></span>
-              <button type="submit" class="popup__submit">Создать</button>
-            </fieldset>
-          </form>
-        </div>
-      </article>
-
-      <article class="popup popup_type_image-overlay">
-          <figure class="popup__figure">
-            <button type="button" class="popup__close"></button>
-            <img src="#" alt="Место" class="popup__image" />
-            <figcaption class="popup__caption"></figcaption>
-          </figure>
-      </article>
-
-      <article class="popup" id="popupDelete">
-        <div class="popup__container">
-          <button type="button" class="popup__close" id="closeDeletePopup"></button>
-          <h3 class="popup__title">Вы уверены?</h3>
-          <form name="popup-form-delete" class="popup__form" novalidate>
-            <button type="submit" class="popup__submit">Да</button>
-          </form>
-        </div>
-      </article>
-
-      <template id="card-template">
-        <figure class="card">
-          <img src="#" alt="#" class="card__image" />
-          <button class="card__trash"></button>
-          <figcaption class="card__description">
-            <h2 class="card__title"></h2>
-            <div class="card__like-place">
-              <button type="submit" class="card__like"></button>
-              <span class="card__like-count">0</span>
-            </div>
-          </figcaption>
-        </figure>
-      </template>
+      <PopupWithForm name="delete" title='Вы уверены?' buttonText='Удалить' onClose={closeAllPopups}/>
+      <AddCardPopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}/>
+      <EditPopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+      <AvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}/>
+      <ImagePopup isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} link={selectedCard.link} name={selectedCard.name}/>
     </div>
   );
 }
