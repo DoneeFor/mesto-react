@@ -1,6 +1,6 @@
 import PopupWithForm from "./PopupWithForm";
 
-function EditPopup(props) {
+function EditProfilePopup(props) {
   return (
     <PopupWithForm name="edit" title="Редактировать профиль" buttonText="Создать" isOpen={props.isOpen} onClose={props.onClose}>
       <input id="name" className="popup__input" type="text" name="username" placeholder="Ваше имя" value="" minLength="2" maxLength="40" required />
@@ -11,4 +11,4 @@ function EditPopup(props) {
   )
 }
 
-export default EditPopup;
+export default EditProfilePopup;

@@ -8,7 +8,7 @@ function Card(props) {
 
   return(
     <figure class="card">
-      <img src={props.link} alt="#" class="card__image" onClick={handleClick}/>
+      <img src={props.link} alt={props.name} class="card__image" onClick={handleClick}/>
       <button class="card__trash">
         <img src={trash} alt="delete"/>
       </button>

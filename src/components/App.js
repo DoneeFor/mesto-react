@@ -4,7 +4,7 @@ import Footer from './Footer';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import AddCardPopup from './AddCardPopup';
-import EditPopup from './EditPopup';
+import EditProfilePopup from './EditProfilePopup';
 import AvatarPopup from './AvatarPopup';
 import ImagePopup from './ImagePopup';
 import '../index.css';
@@ -47,7 +47,7 @@ function App() {
       <Footer />
       <PopupWithForm name="delete" title='Вы уверены?' buttonText='Удалить' onClose={closeAllPopups}/>
       <AddCardPopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}/>
-      <EditPopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}/>
       <AvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}/>
       <ImagePopup isOpen={isImagePopupOpen} onClose={closeAllPopups} card={selectedCard} link={selectedCard.link} name={selectedCard.name}/>
     </div>
