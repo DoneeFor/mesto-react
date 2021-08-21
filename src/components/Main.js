@@ -16,7 +16,6 @@ function Main(props) {
       setUserName(res.name);
       setUserDescription(res.about);
       setCards(res);
-      userId = res[0]._id;
     })
     .catch(err => {
       console.log (`Ошибка: ${err}`)
