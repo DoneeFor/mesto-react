@@ -12,10 +12,10 @@ function Main(props) {
   React.useEffect(() => {
     Promise.all([api.getUserData(), api.getInitialCards()])
     .then(res => {
-      setUserAvatar(res.avatar);
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setCards(res);
+      setUserAvatar(res[0].avatar)
+      setUserName(res[0].name)
+      setUserDescription(res[0].about);
+      setCards(res[1]);
     })
     .catch(err => {
       console.log (`Ошибка: ${err}`)

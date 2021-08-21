@@ -41,7 +41,7 @@ function App() {
   }
 
    return (
-    <div class="body">
+    <div className="body">
       <Header />
       <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick}/>
       <Footer />
