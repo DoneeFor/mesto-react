@@ -65,6 +65,17 @@ function App() {
     });
   }
 
+  function handleUpdateUser(name, about) {
+    api.updateUserData(name, about)
+    .then((user) => {
+      setCurrentUser(user)
+      closeAllPopups();
+    })
+    .catch(err => {
+      console.log (`Ошибка: ${err}`)
+    });
+  }
+
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     api.likeCardStatus(card._id, !isLiked)
@@ -149,7 +160,8 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          overlay={overlayClick}/>
+          overlay={overlayClick}
+          onUpdateUser={handleUpdateUser}/>
         <AvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
