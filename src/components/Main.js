@@ -1,46 +1,28 @@
 import React from "react";
-import api from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 function Main(props) {
 
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    Promise.all([api.getUserData(), api.getInitialCards()])
-    .then(res => {
-      setUserAvatar(res[0].avatar)
-      setUserName(res[0].name)
-      setUserDescription(res[0].about);
-      setCards(res[1]);
-    })
-    .catch(err => {
-      console.log (`Ошибка: ${err}`)
-    })
-  }, [])
-
-
+  const currentUser = React.useContext(CurrentUserContext);
 
   return(
     <main className="container">
       <section className="profile">
         <div className="profile__avatar">
-          <img src={userAvatar} alt="Аватарка" className="profile__image" onClick={props.onEditAvatar} />
+          <img src={currentUser ? currentUser.avatar : null} alt="Аватарка" className="profile__image" onClick={props.onEditAvatar} />
         </div>
         <div className="profile__info">
           <div className="profile__block">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser ? currentUser.name : null}</h1>
             <button type="button" className="profile__edit-button" onClick={props.onEditProfile}></button>
           </div>
-          <p className="profile__description">{userDescription}</p>
+          <p className="profile__description">{currentUser ? currentUser.about : null}</p>
         </div>
         <button type="button" className="profile__add-button" onClick={props.onAddPlace}></button>
       </section>
       <section className="cards">
-        {cards.map((card) => (
+        {props.cards.map((card) => (
           <Card
           card={card}
           key={card._id}
@@ -48,6 +30,8 @@ function Main(props) {
           name={card.name}
           likes={card.likes.length}
           onCardClick={props.onCardClick}
+          onCardLike={props.onCardLike}
+          onCardDelete={props.onCardDelete}
           />
         ))}
       </section>

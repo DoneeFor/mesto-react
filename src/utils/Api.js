@@ -34,6 +34,9 @@ class Api {
       .then(this._checkRequestResult)
   }
 
+  likeCardStatus(cardId, isLiked) {
+    return isLiked ? this.like(cardId) : this.dislike(cardId);
+  }
 
   postCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
